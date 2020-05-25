@@ -1,7 +1,8 @@
 {
   "name": "qrProyecto",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

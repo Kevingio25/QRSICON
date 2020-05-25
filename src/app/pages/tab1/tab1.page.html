@@ -1,0 +1,18 @@
+
+<ion-content >
+
+<ion-slides [options]="swiperOpts">
+    <ion-slide>
+        <ion-button expand="full"
+                    color="danger"
+                    fill="outline"
+                    size="large"
+                    (click)="scan()"> <!-- llamamos la función scan ubicado en tab1.page.ts -->
+                        Escanear Qr
+                        <br>
+                        <ion-label class=".toast-message">DIPSP</ion-label> 
+                        <!-- La clase ".toast-message se encuentra en tab1.page.spec.ts-->
+        </ion-button>
+    </ion-slide>
+</ion-slides>
+</ion-content>
