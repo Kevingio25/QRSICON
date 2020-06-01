@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { Registro } from '../model/registro.model';
 import { File } from '@ionic-native/file/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { IonList, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,9 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class DataLocalService {
 
   guardados: Registro[] = [];
+  seleccionados: Registro[] = [];
 
-  constructor( private storage: Storage, private file: File, private emailComposer: EmailComposer) {
+  constructor( private storage: Storage, private file: File, private emailComposer: EmailComposer, private toasCtrl: ToastController) {
 
     this.cargarStorage(); // cargamos en la pagina los registros que tenemos almacenados
 
@@ -19,7 +21,7 @@ export class DataLocalService {
    // async funciona para esperar los datos si es que aun no los recibe
    async cargarStorage(){
 
-    this.guardados = (await this.storage.get('registros')) || []; 
+    this.guardados = (await this.storage.get('registros')) || [];
 
    }
 
@@ -36,6 +38,14 @@ export class DataLocalService {
 
   }
 
+  async presentToast(message: string) {
+    const toast = await this.toasCtrl.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   enviarCorreo(){
 
     const arrTemp = []; // arreglo que sirve para guardar toda la información que queremos poner en el csv 
@@ -43,7 +53,7 @@ export class DataLocalService {
     // creamos las columnas del archivo csv
     arrTemp.push( columnas );
     // agregamos las columnas
-    this.guardados.forEach( registro => { // por cada registro guardado lo agregamos a una fila del archivo creado
+    this.seleccionados.forEach( registro => { // por cada registro guardado lo agregamos a una fila del archivo creado
 
       // const fila = ` ${ registro.tipo }, ${ registro.formato }, ${ registro.creado }, ${ registro.texto } \n`;
       // ${ registro.texto.replace(',', ' ')} //reemplaza la coma que encuentre por un espacio
@@ -53,6 +63,8 @@ export class DataLocalService {
     });
     console.log( arrTemp.join(''));
     this.crearArchivo( arrTemp.join('') );
+    const tam = this.seleccionados.length;
+    this.seleccionados.splice(0, tam);
   }
 
   crearArchivo( texto: string ){
@@ -97,6 +109,19 @@ export class DataLocalService {
     // abre correo con todos los datos
     this.emailComposer.open(email);
 
+  }
+
+  borraRegistro( registro ){
+   const elemento = this.guardados.indexOf(registro);
+   this.guardados.splice(elemento, 1);
+   this.storage.set('registros', this.guardados);
+   console.log( 'Borramos ', registro );
+   this.presentToast('Registro eliminado');
+  }
+  registroSeleccionado( registro ){
+
+    this.seleccionados.unshift( registro );
+    this.presentToast('Registro seleccionado');
   }
 
 }

@@ -13,13 +13,19 @@ export class Tab2Page {
   enviarCorreo(){
 
     // console.log('Enviando Correo');
-    this.dataLocal.enviarCorreo(); //enviamos correo 
+    this.dataLocal.enviarCorreo(); // enviamos correo 
     
   }
-  
-  abrirRegistro( registro ){ // aqui irá la funcion enviar correo para que solo se manden los seleccionados
 
-    console.log('Registro', registro);
+  borrar( registro ){
+
+    this.dataLocal.borraRegistro( registro ); // llamamos la función para borrar un registro con el parametro seleccionado
+
+  }
+  
+  registroSeleccionado( registro ){ // aqui irá la funcion enviar correo para que solo se manden los seleccionados
+
+    this.dataLocal.registroSeleccionado( registro );
 
   }
 }
