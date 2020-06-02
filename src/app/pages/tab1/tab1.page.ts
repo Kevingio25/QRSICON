@@ -18,7 +18,7 @@ export class Tab1Page {
 
   constructor(private barcodeScanner: BarcodeScanner,
               private dataLocal: DataLocalService) {}
-    // 
+    
   ionViewWillEnter(){// cuando va a cargar la pagina
 
     this.scan(); // llama a la función
@@ -32,7 +32,8 @@ export class Tab1Page {
       const arrayT =  barcodeData.text.split('|'); // obtiene los valores que tiene el barcode
       // separamos por los valores por | y lo guardamos en un arreglo
 
-      this.dataLocal.guardarRegistro(arrayT[0], arrayT[1], arrayT[2], arrayT[3], arrayT[4], arrayT[5], arrayT[6], arrayT[7]);
+      // tslint:disable-next-line: max-line-length
+      this.dataLocal.guardarRegistro(arrayT[0], arrayT[1], arrayT[2], arrayT[3], arrayT[4], arrayT[5], arrayT[6], arrayT[7], arrayT[8], arrayT[9], arrayT[10], arrayT[11], arrayT[12], arrayT[13]);
         // tomamos los elementos del arreglo y los guardamos en un nuevo registro
       }
      }).catch(err => {
