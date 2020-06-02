@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1', // indicamos que 'tabs' sea la pagina principal
+    redirectTo: '/tabs/tab2', // indicamos que 'tabs' sea la pagina principal
     pathMatch: 'full'
   }
 ];
