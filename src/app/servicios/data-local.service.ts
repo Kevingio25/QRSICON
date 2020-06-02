@@ -97,7 +97,7 @@ export class DataLocalService {
     const archivo = ( `${this.file.dataDirectory}registros.csv`);
     // indicamos a donde queremos enviar el correo , insertamos el archivo, asunto, cuerpo del correo
     const email = {
-      to: 'kevingiovani25@gmail.com',
+      to: 'disps.secretariasalud.cdmx@gmail.com, dipsp.secretariasalud.cdmx@gmail.com',
       attachments: [
         archivo
       ],
