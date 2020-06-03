@@ -29,11 +29,13 @@ export class Tab1Page {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
       if( !barcodeData.cancelled ){ // si el scaneo no fue cancelado
-      const arrayT =  barcodeData.text.split('|'); // obtiene los valores que tiene el barcode
+      //const arrayT =  barcodeData.text.split('|');
+       // obtiene los valores que tiene el barcode
+      const arrayT =  barcodeData.text;
       // separamos por los valores por | y lo guardamos en un arreglo
 
       // tslint:disable-next-line: max-line-length
-      this.dataLocal.guardarRegistro(arrayT[0], arrayT[1], arrayT[2], arrayT[3], arrayT[4], arrayT[5], arrayT[6], arrayT[7], arrayT[8], arrayT[9], arrayT[10], arrayT[11], arrayT[12], arrayT[13]);
+      this.dataLocal.guardarRegistro(arrayT, '', '', '', '', '', '', '', '', '', '', '', '', '');
         // tomamos los elementos del arreglo y los guardamos en un nuevo registro
       }
      }).catch(err => {

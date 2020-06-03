@@ -50,15 +50,17 @@ export class DataLocalService {
   enviarCorreo(){
 
     const arrTemp = []; // arreglo que sirve para guardar toda la información que queremos poner en el csv 
-    const columnas = ' ,  , , , , , , , , , , , , , \n';
+    // const columnas = ' ,  , , , , , , , , , , , , , \n';
     // creamos las columnas del archivo csv
-    arrTemp.push( columnas );
+    // arrTemp.push( columnas );
     // agregamos las columnas
     this.guardados.forEach( registro => { // por cada registro guardado lo agregamos a una fila del archivo creado
 
       // const fila = ` ${ registro.tipo }, ${ registro.formato }, ${ registro.creado }, ${ registro.texto } \n`;
       // ${ registro.texto.replace(',', ' ')} //reemplaza la coma que encuentre por un espacio
-      const fila = ` ${ registro.unidad }, ${ registro.rfc }, ${ registro.curp }, ${ registro.apellido1 },  ${ registro.apellido2 }, ${ registro.nombre }, ${ registro.fechaIngreso }, ${ registro.tipoEntrega }, ${ registro.aux1 }, ${ registro.aux2 },  ${ registro.aux3 }, ${ registro.aux4 }, ${ registro.aux5 }, ${ registro.aux6 }  \n`;
+      // tslint:disable-next-line: max-line-length
+      // const fila = ` ${ registro.unidad }, ${ registro.rfc }, ${ registro.curp }, ${ registro.apellido1 },  ${ registro.apellido2 }, ${ registro.nombre }, ${ registro.fechaIngreso }, ${ registro.tipoEntrega }, ${ registro.aux1 }, ${ registro.aux2 },  ${ registro.aux3 }, ${ registro.aux4 }, ${ registro.aux5 }, ${ registro.aux6 }  \n`;
+      const fila = ` ${ registro.unidad } \n`;
       // creación de fila
       arrTemp.push( fila ); // agregamos fila
     });
