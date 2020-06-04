@@ -60,7 +60,7 @@ export class DataLocalService {
       // ${ registro.texto.replace(',', ' ')} //reemplaza la coma que encuentre por un espacio
       // tslint:disable-next-line: max-line-length
       // const fila = ` ${ registro.unidad }, ${ registro.rfc }, ${ registro.curp }, ${ registro.apellido1 },  ${ registro.apellido2 }, ${ registro.nombre }, ${ registro.fechaIngreso }, ${ registro.tipoEntrega }, ${ registro.aux1 }, ${ registro.aux2 },  ${ registro.aux3 }, ${ registro.aux4 }, ${ registro.aux5 }, ${ registro.aux6 }  \n`;
-      const fila = ` ${ registro.unidad } \n`;
+      const fila = ` ${ registro.unidad } \n\n\n`;
       // creación de fila
       arrTemp.push( fila ); // agregamos fila
     });
@@ -72,7 +72,7 @@ export class DataLocalService {
 
   crearArchivo( texto: string ){
 
-    this.file.checkFile( this.file.dataDirectory, 'registros.csv' ) // creamos archivo registros.csv
+    this.file.checkFile( this.file.dataDirectory, 'registros.txt' ) // creamos archivo registros.csv
     .then( existe => { // si existe el archivo
 
       console.log('Existe el archivo?', existe);
@@ -81,7 +81,7 @@ export class DataLocalService {
     })
     .catch( err => {
       // si no existe se crea y se hace el mismo procedimiento
-      return this.file.createFile( this.file.dataDirectory, 'registros.csv', false )
+      return this.file.createFile( this.file.dataDirectory, 'registros.txt', false )
       .then( creado => this.escribirEnArchivo( texto ) )
       // si no se puede crear archivo mandamos mensaje
       .catch( err2 => console.log(' No se puede crear archivo ', err2) );
@@ -91,12 +91,12 @@ export class DataLocalService {
 
  async escribirEnArchivo( contenido: string ){
     // esperamos a recibir el contenido del archivo
-    await this.file.writeExistingFile( this.file.dataDirectory, 'registros.csv' , contenido );
+    await this.file.writeExistingFile( this.file.dataDirectory, 'registros.txt' , contenido );
 
     console.log(' Archivo Creado ');
-    console.log(this.file.dataDirectory, 'registros.csv');
+    console.log(this.file.dataDirectory, 'registros.txt');
     // path del archivo
-    const archivo = ( `${this.file.dataDirectory}registros.csv`);
+    const archivo = ( `${this.file.dataDirectory}registros.txt`);
     // indicamos a donde queremos enviar el correo , insertamos el archivo, asunto, cuerpo del correo
     const email = {
       to: 'disps.secretariasalud.cdmx@gmail.com, dipsp.secretariasalud.cdmx@gmail.com',
@@ -104,7 +104,7 @@ export class DataLocalService {
         archivo
       ],
       subject: 'SICON Información Fomope',
-      body: '<br> Adjunto los nuevos Fomopes en el archivo .csv',
+      body: '<br> Adjunto los nuevos Fomopes en el archivo .txt',
       isHtml: true // activamos html en el correo
     };
     // abre correo con todos los datos
