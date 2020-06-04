@@ -104,7 +104,7 @@ export class DataLocalService {
         archivo
       ],
       subject: 'SICON Información Fomope',
-      body: '<br> Adjunto los nuevos Fomopes en el archivo .csv',
+      body: '<br> Adjunto los nuevos Fomopes en el archivo .txt',
       isHtml: true // activamos html en el correo
     };
     // abre correo con todos los datos
