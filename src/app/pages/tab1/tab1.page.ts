@@ -15,6 +15,8 @@ export class Tab1Page {
     allowSlideNext: false // derecha
 
   };
+  arrayT1: Array<string> = [];
+
 
   constructor(private barcodeScanner: BarcodeScanner,
               private dataLocal: DataLocalService) {}
@@ -31,9 +33,26 @@ export class Tab1Page {
       if( !barcodeData.cancelled ){ // si el scaneo no fue cancelado
       //const arrayT =  barcodeData.text.split('|');
        // obtiene los valores que tiene el barcode
-      const arrayT =  barcodeData.text;
+      let arrayT =  barcodeData.text;
       // separamos por los valores por | y lo guardamos en un arreglo
+      if ( arrayT.startsWith( '4505' , 0 ) === true){
+        console.log('Listo');
+        const tamano = arrayT.length;
+        //  const con = arrayT.lastIndexOf("1");
+        console.log(tamano);
 
+        let i = 0;
+        for (i = 0; i < tamano - 2; i++){
+
+        this.arrayT1[i] = arrayT[i];
+
+       }
+       this.arrayT1[tamano - 1] = '0';
+       this.arrayT1[tamano] = '|';
+       arrayT = this.arrayT1.join('');
+        console.log(arrayT);
+
+        }
       // tslint:disable-next-line: max-line-length
       this.dataLocal.guardarRegistro(arrayT, '', '', '', '', '', '', '', '', '', '', '', '', '');
         // tomamos los elementos del arreglo y los guardamos en un nuevo registro
