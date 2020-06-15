@@ -60,7 +60,7 @@ export class DataLocalService {
       // ${ registro.texto.replace(',', ' ')} //reemplaza la coma que encuentre por un espacio
       // tslint:disable-next-line: max-line-length
       // const fila = ` ${ registro.unidad }, ${ registro.rfc }, ${ registro.curp }, ${ registro.apellido1 },  ${ registro.apellido2 }, ${ registro.nombre }, ${ registro.fechaIngreso }, ${ registro.tipoEntrega }, ${ registro.aux1 }, ${ registro.aux2 },  ${ registro.aux3 }, ${ registro.aux4 }, ${ registro.aux5 }, ${ registro.aux6 }  \n`;
-      const fila = ` ${ registro.unidad } \n\n\n`;
+      const fila = ` ${ registro.unidad } \r\n`;
       // creación de fila
       arrTemp.push( fila ); // agregamos fila
     });
@@ -99,7 +99,7 @@ export class DataLocalService {
     const archivo = ( `${this.file.dataDirectory}registros.txt`);
     // indicamos a donde queremos enviar el correo , insertamos el archivo, asunto, cuerpo del correo
     const email = {
-      to: 'disps.secretariasalud.cdmx@gmail.com, dipsp.secretariasalud.cdmx@gmail.com',
+      to: 'disps.secretariasalud.cdmx@gmail.com',
       attachments: [
         archivo
       ],
