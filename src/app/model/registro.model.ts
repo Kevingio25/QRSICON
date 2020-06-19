@@ -38,4 +38,9 @@ export class Registro {
         this.aux6 = aux6;
 
     }
+
+    actualizarContador(newContador: number){
+        this.contador = newContador;
+    }
+    
 }

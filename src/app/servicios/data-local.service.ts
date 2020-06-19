@@ -134,10 +134,17 @@ export class DataLocalService {
   borraRegistro( registro ){
    const elemento = this.guardados.indexOf(registro);
    this.numLot.restarContador();
+   var pasarCont = this.numLot.getContador;
    this.guardados.splice(elemento, 1);
    this.storage.set('registros', this.guardados);
+   //this.storage.set('loteos', this.guardados);
    console.log( 'Borramos ', registro );
    this.presentToast('Registro eliminado');
+   console.log("el tamaño del arreglo guardar es: ",this.guardados.length);
+   for (let i = 0; i < this.guardados.length-1; i++) {
+      this.guardados[i].actualizarContador(pasarCont);
+   }
+   
   }
 
   // registroSeleccionado( registro ){

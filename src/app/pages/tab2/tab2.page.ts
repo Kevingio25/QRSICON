@@ -26,10 +26,8 @@ export class Tab2Page {
     toast.present();
   }
 
-  borrar( registro ){
-
+  borrar( registro){
     this.dataLocal.borraRegistro( registro ); // llamamos la función para borrar un registro con el parametro seleccionado
-
   }
 
   agregarL( numLot ){
