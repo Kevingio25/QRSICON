@@ -3,7 +3,7 @@
 export class Registro {
 
     public unidad: string;
-    public rfc: string;
+    public contador: number;
     public curp: string;
     public apellido1: string;
     public apellido2: string;
@@ -19,11 +19,11 @@ export class Registro {
 
 
     // tslint:disable-next-line: max-line-length
-    constructor( unidad: string, rfc: string, curp: string, apellido1: string, apellido2: string, nombre: string, fechaIngreso: string, tipoEntrega: string, aux1: string, aux2: string, aux3: string, aux4: string, aux5: string, aux6: string  ){
+    constructor( unidad: string, contador: number, curp: string, apellido1: string, apellido2: string, nombre: string, fechaIngreso: string, tipoEntrega: string, aux1: string, aux2: string, aux3: string, aux4: string, aux5: string, aux6: string  ){
 
 
         this.unidad = unidad;
-        this.rfc = rfc;
+        this.contador = contador;
         this.curp = curp;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;

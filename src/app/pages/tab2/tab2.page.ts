@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController  } from '@ionic/angular';
 import { DataLocalService } from '../../servicios/data-local.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-tab2',
@@ -30,12 +31,10 @@ export class Tab2Page {
     this.dataLocal.borraRegistro( registro ); // llamamos la función para borrar un registro con el parametro seleccionado
 
   }
-  
-  // registroSeleccionado( registro ){ // aqui irá la funcion enviar correo para que solo se manden los seleccionados
 
-  //   this.dataLocal.registroSeleccionado( registro );
-
-  // }
+  agregarL( numLot ){
+    this.dataLocal.agregarL(numLot);
+  }
 
   borraRegistros(){
     this.dataLocal.borraRegistros();
@@ -64,8 +63,40 @@ export class Tab2Page {
         }
       ]
     });
-
     await alert.present();
   }
+
+  async presentAlertLoteo() {
+    const alert = await this.alertCtrl.create({
+    header: 'Lote',
+    subHeader: 'Agregar Lote',
+    message: 'Recuerda que son 7 caracteres',
+  inputs: [
+    {
+      name: 'userLote',
+      placeholder: 'LOTE',
+      min: '7',
+      max: '7'
+    }
+  ],
+  buttons: [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: data => {
+        console.log('Cancel clicked');
+      }
+    },
+    {
+      text: 'Agreagar',
+      handler: data => {
+        //data.username
+          this.agregarL(data.userLote);
+      }
+    }
+  ]
+});
+alert.present();
 }
 
+}

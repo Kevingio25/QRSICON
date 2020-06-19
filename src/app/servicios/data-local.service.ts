@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Registro } from '../model/registro.model';
+import { Lote } from '../model/lote.model';
 import { File } from '@ionic-native/file/ngx';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { IonList, ToastController } from '@ionic/angular';
@@ -12,7 +13,8 @@ export class DataLocalService {
 
   guardados: Registro[] = [];
   seleccionados: Registro[] = [];
-
+  numLot: Lote;
+  
   constructor( private storage: Storage, private file: File, private emailComposer: EmailComposer, private toasCtrl: ToastController) {
 
     this.cargarStorage(); // cargamos en la pagina los registros que tenemos almacenados
@@ -26,12 +28,29 @@ export class DataLocalService {
    }
 
   // tslint:disable-next-line: max-line-length
-  async guardarRegistro( unidad: string, rfc: string, curp: string, apellido1: string, apellido2: string, nombre: string, fechaIngreso: string, tipoEntrega: string, aux1: string, aux2: string, aux3: string, aux4: string, aux5: string, aux6: string  ){
+  async guardarRegistro( unidad: string, contador: number, curp: string, apellido1: string, apellido2: string, nombre: string, fechaIngreso: string, tipoEntrega: string, aux1: string, aux2: string, aux3: string, aux4: string, aux5: string, aux6: string  ){
     // guardamos los datos
+    
     await this.cargarStorage();
+    this.numLot.aumentarContador();
+    contador = this.numLot.getContador;
+    console.log("El contador:", this.numLot.getContador);
+    var separarPleca = unidad.split("|");
+    separarPleca[2] = this.numLot.getLote;
+    let j= 0;
+          var cadenaQrCambiada = "";
+          for (j = 0; j < separarPleca.length; j++){
+            if(j == 0){
+                cadenaQrCambiada = separarPleca[j];
+            }else{
+              cadenaQrCambiada = cadenaQrCambiada + "|" + separarPleca[j];
+            }
+          }
+          unidad = cadenaQrCambiada;
+          console.log("La cadena quedo: " + unidad);
     // carga los datos
     // tslint:disable-next-line: max-line-length
-    const nuevoRegistro = new Registro( unidad, rfc, curp, apellido1, apellido2, nombre, fechaIngreso, tipoEntrega, aux1, aux2, aux3, aux4, aux5, aux6);
+    const nuevoRegistro = new Registro( unidad,contador, curp, apellido1, apellido2, nombre, fechaIngreso, tipoEntrega, aux1, aux2, aux3, aux4, aux5, aux6);
     // se crea un nuevo registro
     this.guardados.unshift( nuevoRegistro ); // lo agregamos al final del storage
     console.log(this.guardados);
@@ -114,6 +133,7 @@ export class DataLocalService {
 
   borraRegistro( registro ){
    const elemento = this.guardados.indexOf(registro);
+   this.numLot.restarContador();
    this.guardados.splice(elemento, 1);
    this.storage.set('registros', this.guardados);
    console.log( 'Borramos ', registro );
@@ -135,4 +155,13 @@ export class DataLocalService {
     this.presentToast('Registros eliminados');
   }
 
+  async agregarL(recibeLote: string){
+    //const elemento = this.numLot.indexOf(recibeLote);
+   // this.guardados.splice(elemento, 1);
+    this.numLot = new Lote(recibeLote,0);
+    this.numLot.reiniciarContador();
+    // se crea un nuevo registro
+   console.log( 'el lote ', this.numLot.getLote );
+   // this.presentToast('Registro eliminado');
+  }
 }

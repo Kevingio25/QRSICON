@@ -53,6 +53,28 @@ export class Tab1Page {
        arrayT = this.arrayT1.join('');
         console.log(arrayT);*/
 
+
+       /*  *********************Es para detectar la pleca dinamicamente (no es necesatrio )
+      
+        let j = 0;
+        let contadorPlecas =0  ;
+        for (j = 0; j < tamano ; j++){
+          if(arrayT[j] == "|"){
+            contadorPlecas ++;
+          }
+        }
+       console.log("el CONTADOR de plecas:" + contadorPlecas);
+        var separarPleca = arrayT.split("|", contadorPlecas);
+        console.log(separarPleca[contadorPlecas-1]);
+        separarPleca[contadorPlecas-1] = "0";
+        console.log(separarPleca);
+        let i = 0;
+            for (i = 0; i < tamano - 2; i++){
+
+              this.arrayT1[i] = arrayT[i];
+
+            }
+        }*/
           // **************** Re asignamos el valor que se solicita (se encuentra al ultimo del string)
           var separarPleca = arrayT.split("|", 37);
           console.log(separarPleca[36]);
@@ -60,7 +82,25 @@ export class Tab1Page {
 
           separarPleca[36] = "0";
           console.log("Ahora se cambia de 1 a: "+ separarPleca[36]);
-         
+          /*************************** Se cambia la ñ --> & en la parte del nombre  */
+          var nombreMal;
+          var CaracteresNombreMal;
+          var concatenaNombre = "";
+          nombreMal = separarPleca[4];
+          CaracteresNombreMal = nombreMal.split('');
+
+         for (let c = 0; c < CaracteresNombreMal.length; c++) {
+            if(CaracteresNombreMal[c] == "ñ" || CaracteresNombreMal[c] == "Ñ"){
+              CaracteresNombreMal[c] = "&";
+            }
+         }
+
+         for (let c2 = 0; c2 < CaracteresNombreMal.length; c2++) { //se vuelve a jutar la cadena del nombre
+            concatenaNombre = concatenaNombre + CaracteresNombreMal[c2];  
+        }
+
+
+         separarPleca[4] = concatenaNombre;
           // ***************** Vamos a contruir otra vez la cadena inicial 
           let j= 0;
           var cadenaQrCambiada = "";
@@ -77,10 +117,25 @@ export class Tab1Page {
         }else{
           arrayT =  "cadena no valida_"+ arrayT ;
         }
+      }else{    // si no es una clave 4050 a continuacion son los de caravanas de Velazquez
+         var separarPleca = arrayT.split("|");
+          var nombreMal;
+            var CaracteresNombreMal;
+            var concatenaNombre = "";
+            nombreMal = separarPleca[4];
+            CaracteresNombreMal = nombreMal.split('');
+          for (let c = 0; c < CaracteresNombreMal.length; c++) {
+              if(CaracteresNombreMal[c] == "ñ" || CaracteresNombreMal[c] == "Ñ"){
+                CaracteresNombreMal[c] = "&";
+              }
+          }
+          for (let c2 = 0; c2 < CaracteresNombreMal.length; c2++) { //se vuelve a jutar la cadena del nombre
+              concatenaNombre = concatenaNombre + CaracteresNombreMal[c2];  
+          }
+          separarPleca[4] = concatenaNombre;
       }
-     
       // tslint:disable-next-line: max-line-length
-      this.dataLocal.guardarRegistro(arrayT, '', '', '', '', '', '', '', '', '', '', '', '', '');
+      this.dataLocal.guardarRegistro(arrayT, 0, '', '', '', '', '', '', '', '', '', '', '', '');
         // tomamos los elementos del arreglo y los guardamos en un nuevo registro
       }
      }).catch(err => {

@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>
      Historial
-    </ion-title>
+    </ion-title> 
 <ion-buttons slot="end">
   <ion-button (click)="enviarCorreo()"
               color="primary">
@@ -15,11 +15,31 @@
 <ion-icon name="trash" slot="icon-only" ></ion-icon>
   </ion-button>
 </ion-buttons>
+<ion-buttons slot="start">
+  <ion-button (click)="presentAlertLoteo()"
+              color="primary">
+<ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+</ion-button>
+</ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-reorder-group disabled="false">
+    <!-- Default reorder icon, end aligned items -->
+    <ion-item>
+      <ion-item-sliding *ngFor="let lotes of dataLocal.guardados; let i=index;" 
+             detail>
+        
+      <ion-label>
+        <span *ngIf="i === 0"> <h2><b>Registrados:</b> </h2> {{lotes.contador}}</span>
+        
 
+      </ion-label>
+      </ion-item-sliding>
+      <ion-reorder slot="end"></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>  
 <ion-list>
 <ion-item-sliding *ngFor="let registro of dataLocal.guardados"  
              detail>
